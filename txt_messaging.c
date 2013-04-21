@@ -13,7 +13,7 @@ byte gateway[] = { 192, 168, 1, 1 };
 // Server name 
 char server[] = "http://www.niskyponics.appspot.com";
 
-EternetClient client;
+EthernetClient client;
 
 
 
@@ -43,7 +43,7 @@ void loop() {
 
 
 void sendAlert(String type) {
-	Serial.Println("Sending" + type = "alert.");
+	Serial.println("Sending" + type = "alert.");
 	String response = GAE("hhtp://niskyponics.appspot.com/alerts?Type=" + type);
 	Serial.println(response);
 	Serial.println("Ready");
@@ -56,9 +56,9 @@ String GAE(String link) {
 
 	String readString = ""; //Reset string
 
-	while (client.available90 > 0) {
+	while (client.available() > 0) {
 
-		char s = clent.read(),
+		char s = client.read();
 		//Serial.print(s);			//Complete response w/ headers. For dev mode.
 		if (s== '\n') {
 			char c = client.read();
@@ -77,15 +77,15 @@ String GAE(String link) {
 }
 
 // This method makes an HTTP connection to the server
-void hhtpRequest(String link) {
+void httpRequest(String link) {
 	//if there is a successful connection
 	if (client.connect(server, 80)) {
-		client.println("Get " + link + " HTTP/1.0);
+		client.println("Get " + link + " HTTP/1.0 ");
 		client.println();
 
 	} else {
 		// You couldn't make the connection
 		Serial.println("Connection Failed");
 		Serial.println("Disconnecting.");
-		client.stop();
 	}
+		client.stop(); }
